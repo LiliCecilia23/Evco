@@ -1,11 +1,11 @@
 <script setup>
-defineProps({category});
+defineProps(['section']);
 </script>
 <template>
     <div class="container">
-        <h5>{{ category }}</h5>
+        <h5>{{ section.name }}</h5>
         <ul>
-            <li v-for="product in products">{{ product.name }}</li>
+          <li v-for="product in products">{{ product.Title }}</li>
         </ul>
     </div>
 </template>
@@ -22,7 +22,7 @@ defineProps({category});
     },
     methods: {
       GetProducts() {
-        fetch(`http://localhost:1433/api/data/products/${this.category}`)
+        fetch(`http://localhost:1433/api/data/products/${this.section.id}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');

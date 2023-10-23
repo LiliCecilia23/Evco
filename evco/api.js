@@ -10,11 +10,11 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 
-// Get ALL Data
-app.get('/api/data', async (req, res) => {
+// Get All Categories
+app.get('/api/data/categories', async (req, res) => {
   try {
     const request = new sql.Request(pool);
-    const result = await request.query('SELECT * FROM evco');
+    const result = await request.query('SELECT * FROM categories');
     res.json(result.recordset);
   } catch (err) {
     console.error('Error executing SQL query:', err);
@@ -22,11 +22,23 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// Get Categories
-app.get('/api/data/categories', async (req, res) => {
+// Get Parent Categories
+app.get('/api/data/categories/parents', async (req, res) => {
   try {
     const request = new sql.Request(pool);
-    const result = await request.query('SELECT DISTINCT Category FROM evco');
+    const result = await request.query('SELECT * FROM categories WHERE parentCategory = 1');
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('Error executing SQL query:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get All Products
+app.get(`/api/data/products`, async (req, res) => {
+  try {
+    const request = new sql.Request(pool);
+    const result = await request.query('SELECT * FROM products');
     res.json(result.recordset);
   } catch (err) {
     console.error('Error executing SQL query:', err);
@@ -35,10 +47,28 @@ app.get('/api/data/categories', async (req, res) => {
 });
 
 // Get Products by Category
-app.get(`/api/data/products/${category}`, async (req, res) => {
+app.get('/api/data/products/:category', async (req, res) => {
+  const { category } = req.params; // Retrieve the category parameter from the URL
   try {
     const request = new sql.Request(pool);
-    const result = await request.query('SELECT DISTINCT Category FROM evco');
+    const query = `SELECT * FROM products WHERE Category_ID = @category`; // Use a parameterized query to filter by category
+    request.input('category', sql.NVarChar, category);
+    const result = await request.query(query);
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('Error executing SQL query:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get Product by Part Number
+app.get('/api/data/products/:partNum', async (req, res) => {
+  const { partNum } = req.params; // Retrieve the category parameter from the URL
+  try {
+    const request = new sql.Request(pool);
+    const query = `SELECT * FROM products WHERE Part_Number = @partNum`; // Use a parameterized query to filter by category
+    request.input('category', sql.NVarChar, partNum);
+    const result = await request.query(query);
     res.json(result.recordset);
   } catch (err) {
     console.error('Error executing SQL query:', err);

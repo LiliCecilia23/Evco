@@ -1,5 +1,5 @@
 <script setup>
-
+import categorySection from '../components/CategorySection.vue'
 </script>
 
 <template>
@@ -8,11 +8,14 @@
       <div class="col-2" style="border-right: 2px gray solid;">
         <p style="border-bottom: 1px black solid;">Categories</p>
         <ul class="list-group list-group-flush">
-          <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">{{ category }}</li>
+          <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">{{ category.name }}</li>
         </ul>
       </div>
       <div class="col-10">
-        All Categories
+        <p style="border-bottom: 1px black solid;">All Categories</p>
+        <ul class="list-group list-group-flush">
+          <categorySection v-for="category in categories" :section="category" class="list-group-item" style="font-size: 10pt;"></categorySection>
+        </ul>
       </div>
     </div>
   </main>
@@ -31,7 +34,7 @@
     },
     methods: {
       GetCategories() {
-        fetch('http://localhost:1433/api/data/categories')
+        fetch('http://localhost:1433/api/data/categories/parents')
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -40,25 +43,30 @@
           })
           .then((data) => {
             console.log(data);
-            data.map((category) => {
-              if (category.Category.includes('->')) {
-                const parentCategory = category.Category.substring(0, category.Category.indexOf('->'))
-                if (parentCategory.includes('(')) {
-                  const parentCategoryNoParens = parentCategory.substring(0, parentCategory.indexOf(' ('))
-                  this.categories.push(parentCategoryNoParens);
-                } else {
-                  this.categories.push(parentCategory);
-                } 
-              } else if (!category.Category.includes('->')) {
-                if (category.Category.includes('(')) {
-                  const categoryNoParens = category.Category.substring(0, category.Category.indexOf(' ('))
-                  this.categories.push(categoryNoParens);
-                } else {
-                  this.categories.push(category.Category);
-                }
-              }
+            this.categories = data.sort(function(a, b) {
+                let textA = a.name.toUpperCase();
+                let textB = b.name.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             });
-            this.categories = this.uniq(this.categories);
+            // data.map((category) => {
+            //   if (category.Category.includes('->')) {
+            //     const parentCategory = category.Category.substring(0, category.Category.indexOf('->'))
+            //     if (parentCategory.includes('(')) {
+            //       const parentCategoryNoParens = parentCategory.substring(0, parentCategory.indexOf(' ('))
+            //       this.categories.push(parentCategoryNoParens);
+            //     } else {
+            //       this.categories.push(parentCategory);
+            //     } 
+            //   } else if (!category.Category.includes('->')) {
+            //     if (category.Category.includes('(')) {
+            //       const categoryNoParens = category.Category.substring(0, category.Category.indexOf(' ('))
+            //       this.categories.push(categoryNoParens);
+            //     } else {
+            //       this.categories.push(category.Category);
+            //     }
+            //   }
+            // });
+            // this.categories = this.uniq(this.categories);
           }).catch((error) => {
             console.error('Fetch error:', error);
           });
