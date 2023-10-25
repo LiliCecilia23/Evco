@@ -34,6 +34,21 @@ app.get('/api/data/categories/parents', async (req, res) => {
   }
 });
 
+// Get Subcategories by Category
+app.get('/api/data/categories/:parent', async (req, res) => {
+  const { parent } = req.params; // Retrieve the parent parameter from the URL
+  try {
+    const request = new sql.Request(pool);
+    const query = `SELECT * FROM categories WHERE ParentId = @parent`; // Use a parameterized query to filter by parent
+    request.input('parent', sql.NVarChar, parent);
+    const result = await request.query(query);
+    res.json(result.recordset);
+  } catch (err) {
+    console.error('Error executing SQL query:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Get All Products
 app.get(`/api/data/products`, async (req, res) => {
   try {
