@@ -1,5 +1,22 @@
+* {
+    color: #03312E;
+}
+
 li {
     border: none !important;
     font-size: 10.5px !important;
+    color: #03312E;
 }
 
+a {
+    text-decoration: none !important;
+    color: #03312E;
+}
+
+.nav-link {
+    color: #4DAA57;
+}
+
+h5 {
+    color: #03312E;
+}
