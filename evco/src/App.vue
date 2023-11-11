@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import { state } from './state';
 </script>
 
 <template>
@@ -36,14 +37,30 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </nav>
   <main>
-    <div class="row h-100 p-3">
+    <div v-if="state.view === 'categories'" class="row h-100 p-3">
       <div class="col-2" style="border-right: 2px gray solid;">
         <p class="ms-3" style="color: #4DAA57;font-size: 20px;">Categories</p>
         <ul class="list-group list-group-flush">
           <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">
-            <RouterLink :to="`/category/${category.name}`">{{ category.name }}</RouterLink>
+            <RouterLink @click="categoryClick(category.name, category.id)" :to="{ name: 'category', params: { name: category.name.replace(/\s/g, '')}}">{{ category.name }}</RouterLink>
           </li>
         </ul>
+      </div>
+      <div class="col-10">
+        <RouterView />
+      </div>
+    </div>
+    <div v-if="state.view === 'products'" class="row h-100 p-3">
+      <div class="col-2" style="border-right: 2px gray solid;">
+        <p class="ms-3" style="color: #4DAA57;font-size: 20px;">Filter By</p>
+        <div v-for="filter in filters">
+          <p class="ms-3" style="color: #03312E;font-size: 15px;">{{filter.name}}</p>
+          <ul class="list-group list-group-flush">
+            <!-- <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">
+              <RouterLink @click="productClick(product.name, product.id)" :to="{ name: 'product', params: { name: product.name.replace(/\s/g, '')}}">{{ product.name }}</RouterLink>
+            </li> -->
+          </ul>
+        </div>
       </div>
       <div class="col-10">
         <RouterView />
@@ -58,15 +75,50 @@ import HelloWorld from './components/HelloWorld.vue'
       return {
         categories: [],
         selected: null,
+        filters: [
+          {
+            name: 'Manufacturer',
+            choices: [],
+          },
+          {
+            name: 'Cost',
+            choices: [],
+          },
+          {
+            name: 'List Price',
+            choices: [],
+          },
+          {
+            name: 'Weight',
+            choices: [],
+          },
+          {
+            name: 'Length',
+            choices: [],
+          },
+          {
+            name: 'Width',
+            choices: [],
+          },
+          {
+            name: 'Height',
+            choices: [],
+          },
+        ]
       }
     },
     mounted() {
       this.GetCategories();
     },
     methods: {
-      // categoryClick(name) {
-      //   router.push(`/category/${name}`)
-      // },
+      categoryClick(name, id) {
+        state.selectedId = id;
+        state.selectedName = name;
+      },
+      productClick(name, id) {
+        state.productId = id;
+        state.productName = name;
+      },
       GetCategories() {
         fetch('http://localhost:1433/api/data/categories/parents')
           .then((response) => {

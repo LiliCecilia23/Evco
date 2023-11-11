@@ -24,22 +24,6 @@ defineProps(['section']);
       this.GetSubcategories();
     },
     methods: {
-      GetProducts() {
-        fetch(`http://localhost:1433/api/data/products/${this.section.id}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-            // this.products = data;
-            
-          }).catch((error) => {
-            console.error('Fetch error:', error);
-          });
-      },
       GetSubcategories() {
         fetch(`http://localhost:1433/api/data/categories/${this.section.id}`)
           .then((response) => {

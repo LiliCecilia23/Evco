@@ -1,11 +1,15 @@
 <script setup>
-import categorySection from '../components/CategorySection.vue'
+import subcategory from '../components/Subcategory.vue';
+
+import { state } from '../state'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">All Categories</p>
-  <ul class="list-group list-group-flush">
-    <categorySection v-for="category in categories" :section="category" class="list-group-item" style="font-size: 10pt;"></categorySection>
+  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">{{ state.selectedName }}</p>
+  <ul v-if="subcats.length > 0" class="list-group list-group-horizontal" style="width: 70vw; overflow-x: scroll;">
+    <li v-for="subcat in subcats" class="list-group-item" style="text-align: center; padding: 0px !important; width: 100px;">
+      <subcategory @click="subcat.hasChildren === 1 ? GetSubs(subcat.name, subcat.id) : SubcatClick(subcat.name, subcat.id)" :item="subcat"></subcategory>
+    </li>
   </ul>
 </template>
 
@@ -13,16 +17,22 @@ import categorySection from '../components/CategorySection.vue'
   export default {
     data() {
       return {
-        categories: [],
-        selected: 0,
+        subcats: []
       }
     },
-    mounted() {
-      this.GetCategories();
+    computed: {
+      currentCategory () {
+        return state.selectedId;
+      }
+    },
+    watch: {
+      currentCategory() {
+        this.GetThisCategory();
+      }
     },
     methods: {
-      GetCategories() {
-        fetch('http://localhost:1433/api/data/categories/parents')
+      GetThisCategory() {
+        fetch(`http://localhost:1433/api/data/categories/${state.selectedId}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -31,38 +41,27 @@ import categorySection from '../components/CategorySection.vue'
           })
           .then((data) => {
             console.log(data);
-            this.categories = data.sort(function(a, b) {
-                let textA = a.name.toUpperCase();
-                let textB = b.name.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
-            // data.map((category) => {
-            //   if (category.Category.includes('->')) {
-            //     const parentCategory = category.Category.substring(0, category.Category.indexOf('->'))
-            //     if (parentCategory.includes('(')) {
-            //       const parentCategoryNoParens = parentCategory.substring(0, parentCategory.indexOf(' ('))
-            //       this.categories.push(parentCategoryNoParens);
-            //     } else {
-            //       this.categories.push(parentCategory);
-            //     } 
-            //   } else if (!category.Category.includes('->')) {
-            //     if (category.Category.includes('(')) {
-            //       const categoryNoParens = category.Category.substring(0, category.Category.indexOf(' ('))
-            //       this.categories.push(categoryNoParens);
-            //     } else {
-            //       this.categories.push(category.Category);
-            //     }
-            //   }
-            // });
-            // this.categories = this.uniq(this.categories);
+            this.subcats = data;
+            
           }).catch((error) => {
             console.error('Fetch error:', error);
           });
       },
-      uniq(a) {
-        return a.sort().filter(function(item, pos, ary) {
-            return !pos || item != ary[pos - 1];
-        });
+      GetSubs(name, id) {
+        state.selectedName = `${state.selectedName} >> ${name}`;
+        state.selectedId = id;
+      },
+      SubcatClick(name, id) {
+        state.subcatId = id;
+        state.subcatName = name;
+
+        this.$router.push({
+        name: 'subcat',
+        params: { name: this.$route.params.name, subcat: name.replace(/\s/g, '') },
+        // preserve existing query and hash if any
+        // query: this.$route.query,
+        // hash: this.$route.hash,
+      })
       }
     }
   }
