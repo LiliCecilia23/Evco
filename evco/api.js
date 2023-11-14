@@ -14,7 +14,7 @@ app.use(cors());
 app.get('/api/data/categories', async (req, res) => {
   try {
     const request = new sql.Request(pool);
-    const result = await request.query('SELECT * FROM categories');
+    const result = await request.query('SELECT * FROM categories2');
     res.json(result.recordset);
   } catch (err) {
     console.error('Error executing SQL query:', err);
@@ -26,7 +26,7 @@ app.get('/api/data/categories', async (req, res) => {
 app.get('/api/data/categories/parents', async (req, res) => {
   try {
     const request = new sql.Request(pool);
-    const result = await request.query('SELECT * FROM categories WHERE parentCategory = 1');
+    const result = await request.query('SELECT * FROM categories2 WHERE parentCategory = 1');
     res.json(result.recordset);
   } catch (err) {
     console.error('Error executing SQL query:', err);
@@ -39,7 +39,7 @@ app.get('/api/data/categories/:parent', async (req, res) => {
   const { parent } = req.params; // Retrieve the parent parameter from the URL
   try {
     const request = new sql.Request(pool);
-    const query = `SELECT * FROM categories WHERE ParentId = @parent`; // Use a parameterized query to filter by parent
+    const query = `SELECT * FROM categories2 WHERE parentId = @parent`; // Use a parameterized query to filter by parent
     request.input('parent', sql.NVarChar, parent);
     const result = await request.query(query);
     res.json(result.recordset);

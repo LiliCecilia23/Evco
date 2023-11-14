@@ -4,7 +4,7 @@ import { state } from '../state'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">{{ state.subcatName }}</p>
+  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">{{ state.subcatName }} ({{ products.length }} Products)</p>
   <ul v-if="products.length > 0" class="list-group list-group-flush">
     <li v-for="product in products" class="list-group-item">
       <productListItem :item="product"></productListItem>
@@ -40,8 +40,31 @@ import { state } from '../state'
                 return response.json();
             })
             .then((data) => {
+                state.filters[0].choices = [];
+                state.filters[1].choices = [];
+                state.filters[2].choices = [];
+                state.filters[3].choices = [];
+                state.filters[4].choices = [];
+                state.filters[5].choices = [];
+                state.filters[6].choices = [];
+
                 this.products = data;
-                
+                data.map((product) => {
+                  // Manufacturer
+                  state.filters[0].choices.indexOf(product.Manufacturer_Name) === -1 && state.filters[0].choices.push(product.Manufacturer_Name);
+                  // Cost
+                  state.filters[1].choices.indexOf(product.Cost) === -1 && state.filters[1].choices.push(product.Cost);
+                  // List Price
+                  state.filters[2].choices.indexOf(product.List_Price) === -1 && state.filters[2].choices.push(product.List_Price);
+                  // Weight
+                  state.filters[3].choices.indexOf(product.Weight) === -1 && state.filters[3].choices.push(product.Weight);
+                  // Length
+                  state.filters[4].choices.indexOf(product.Length) === -1 && state.filters[4].choices.push(product.Length);
+                  // Width
+                  state.filters[5].choices.indexOf(product.Width) === -1 && state.filters[5].choices.push(product.Width);
+                  // Height
+                  state.filters[6].choices.indexOf(product.Height) === -1 && state.filters[6].choices.push(product.Height);
+              });
             }).catch((error) => {
                 console.error('Fetch error:', error);
             });

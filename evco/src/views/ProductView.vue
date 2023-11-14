@@ -39,8 +39,24 @@ import { state } from '../state'
                 return response.json();
             })
             .then((data) => {
-                this.products = data;
-                
+              this.products = data;
+              data.map((product) => {
+                // Manufacturer
+                state.filters[0].choices.push(product.Manufacturer_Name);
+                // Cost
+                state.filters[1].choices.push(product.Cost);
+                // List Price
+                state.filters[2].choices.push(product.List_Price);
+                // Weight
+                state.filters[3].choices.push(product.Weight);
+                // Length
+                state.filters[4].choices.push(product.Length);
+                // Width
+                state.filters[5].choices.push(product.Width);
+                // Height
+                state.filters[6].choices.push(product.Height);
+              })
+              console.log(state.filters);
             }).catch((error) => {
                 console.error('Fetch error:', error);
             });

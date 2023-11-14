@@ -54,7 +54,7 @@ import { state } from '../state'
       SubcatClick(name, id) {
         state.subcatId = id;
         state.subcatName = name;
-
+        state.view = 'products';
         this.$router.push({
         name: 'subcat',
         params: { name: this.$route.params.name, subcat: name.replace(/\s/g, '') },

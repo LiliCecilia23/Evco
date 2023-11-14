@@ -53,12 +53,13 @@ import { state } from './state';
     <div v-if="state.view === 'products'" class="row h-100 p-3">
       <div class="col-2" style="border-right: 2px gray solid;">
         <p class="ms-3" style="color: #4DAA57;font-size: 20px;">Filter By</p>
-        <div v-for="filter in filters">
+        <div v-for="filter in state.filters">
           <p class="ms-3" style="color: #03312E;font-size: 15px;">{{filter.name}}</p>
           <ul class="list-group list-group-flush">
-            <!-- <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">
-              <RouterLink @click="productClick(product.name, product.id)" :to="{ name: 'product', params: { name: product.name.replace(/\s/g, '')}}">{{ product.name }}</RouterLink>
-            </li> -->
+            <li v-for="choice in filter.choices" class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" value="" id="`${choice.replace(/\s/g, '')}`">
+              <label class="form-check-label" for="`${choice.replace(/\s/g, '')}`">{{ choice }}</label>
+            </li>
           </ul>
         </div>
       </div>
@@ -75,36 +76,6 @@ import { state } from './state';
       return {
         categories: [],
         selected: null,
-        filters: [
-          {
-            name: 'Manufacturer',
-            choices: [],
-          },
-          {
-            name: 'Cost',
-            choices: [],
-          },
-          {
-            name: 'List Price',
-            choices: [],
-          },
-          {
-            name: 'Weight',
-            choices: [],
-          },
-          {
-            name: 'Length',
-            choices: [],
-          },
-          {
-            name: 'Width',
-            choices: [],
-          },
-          {
-            name: 'Height',
-            choices: [],
-          },
-        ]
       }
     },
     mounted() {

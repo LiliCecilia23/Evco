@@ -9,4 +9,34 @@ export const state = reactive({
   subcatName: null,
   productName: null,
   productId: null,
+  filters: [
+    {
+      name: 'Manufacturer',
+      choices: [],
+    },
+    {
+      name: 'Cost',
+      choices: [],
+    },
+    {
+      name: 'List Price',
+      choices: [],
+    },
+    {
+      name: 'Weight',
+      choices: [],
+    },
+    {
+      name: 'Length',
+      choices: [],
+    },
+    {
+      name: 'Width',
+      choices: [],
+    },
+    {
+      name: 'Height',
+      choices: [],
+    },
+  ]
 })
