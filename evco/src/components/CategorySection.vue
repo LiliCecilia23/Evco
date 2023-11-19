@@ -6,7 +6,7 @@ defineProps(['section']);
 </script>
 <template>
     <div class="container">
-        <h5>{{ section.name }}<span v-if="subcats.length === 0" class="ms-2" style="color: #4DAA57;">→</span></h5>
+        <h5>{{ section.name }}<span v-if="subcats.length === 0" class="ms-2" style="color: #F23838;">→</span></h5>
         <ul v-if="subcats.length > 0" class="list-group list-group-horizontal" style="width: 70vw; overflow-x: scroll;">
           <li v-for="subcat in subcats" class="list-group-item" style="text-align: center; padding: 0px !important; width: 100px;">
             <subcategory @click="subcat.hasChildren === 1 ? GetSubs(subcat.name, subcat.id) : SubcatClick(subcat.name, subcat.id)" :item="subcat"></subcategory>
@@ -48,7 +48,7 @@ defineProps(['section']);
         console.log(this.$route.params);
         state.subcatId = id;
         state.subcatName = name;
-        state.view = 'products';
+        // state.view = 'products';
         this.$router.push({
           name: 'subcat',
           params: { name: 'home', subcat: name.replace(/\s/g, '') },

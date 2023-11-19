@@ -28,7 +28,7 @@ const router = createRouter({
       component: () => import('../views/SubcatView.vue'),
     },
     {
-      path: '/product/:name',
+      path: '/product/:id',
       name: 'product',
       component: () => import('../views/ProductView.vue'),
     }

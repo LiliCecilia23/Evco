@@ -77,14 +77,20 @@ app.get('/api/data/products/:category', async (req, res) => {
 });
 
 // Get Product by Part Number
-app.get('/api/data/products/:partNum', async (req, res) => {
+app.get('/api/data/product/:partNum', async (req, res) => {
   const { partNum } = req.params; // Retrieve the category parameter from the URL
   try {
     const request = new sql.Request(pool);
+    console.log(request);
     const query = `SELECT * FROM products WHERE Part_Number = @partNum`; // Use a parameterized query to filter by category
-    request.input('category', sql.NVarChar, partNum);
+    console.log(query);
+    request.input('partNum', sql.NVarChar, partNum);
     const result = await request.query(query);
-    res.json(result.recordset);
+    if (result.recordset.length > 0) {
+      res.json(result.recordset); // Return the results if any are found
+    } else {
+      res.status(404).json({ error: 'Product not found' }); // Return 404 if no product is found
+    }  
   } catch (err) {
     console.error('Error executing SQL query:', err);
     res.status(500).json({ error: 'Internal Server Error' });

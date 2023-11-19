@@ -3,88 +3,88 @@ import { state } from '../state'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">{{ state.subcatName }}</p>
-  <ul v-if="products.length > 0" class="list-group list-group-flush">
-    <li v-for="product in products" class="list-group-item">
-      <productListItem :item="product"></productListItem>
-    </li>
-  </ul>
+  <div class="row" style="height: 379px;">
+    <div class="col-7">
+      <nav class="ms-3" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#">Home</a></li>
+          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#">{{ product.Category }}</a></li>
+          <li class="breadcrumb-item active" style="font-size: 12pt !important;" aria-current="page">{{ state.productName }}</li>
+        </ol>
+      </nav>
+      <div style="display: flex; justify-content: center;">
+        <img v-if="product.imgUrl === null || product.imgUrl === undefined" src="../assets/noImg.png" alt="No Image Available" />
+        <img v-else :src="product.imgUrl" alt="Product Image" />
+      </div>
+    </div>
+    <div class="col-5">
+      <p style="color: #F23838; font-size: 25pt;">{{ state.productName }}</p>
+      <p style="color:#565659; font-size: 12pt; font-weight: light; margin-top: -15px;">Part #{{ product.Part_Number }}</p>
+      <hr>
+      <p style="font-size: 25pt;">${{ product.List_Price }}</p>
+      <!-- <p style="color:#565659; font-size: 12pt; font-weight: light;">Product Specifications</p>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th scope="row">Height</th>
+            <td>{{ product.Height }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Weight</th>
+            <td>{{ product.Weight }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Length</th>
+            <td>{{ product.Length }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Width</th>
+            <td>{{ product.Width }}</td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        products: []
+        product: {}
       }
     },
+    mounted() {
+      this.GetThisProduct();
+    },
     computed: {
-      subcatProducts() {
-        this.GetProducts();
-        return state.subcatId;
+      productSelect() {
+        return state.productId;
       }
     },
     watch: {
-      subcatProducts() {
-        this.GetProducts();
+      productSelect() {
+        this.GetThisProduct();
       }
     },
     methods: {
-        GetProducts() {
-            fetch(`http://localhost:1433/api/data/products/${state.subcatId}`)
-            .then((response) => {
-                if (!response.ok) {
-                throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-              this.products = data;
-              data.map((product) => {
-                // Manufacturer
-                state.filters[0].choices.push(product.Manufacturer_Name);
-                // Cost
-                state.filters[1].choices.push(product.Cost);
-                // List Price
-                state.filters[2].choices.push(product.List_Price);
-                // Weight
-                state.filters[3].choices.push(product.Weight);
-                // Length
-                state.filters[4].choices.push(product.Length);
-                // Width
-                state.filters[5].choices.push(product.Width);
-                // Height
-                state.filters[6].choices.push(product.Height);
-              })
-              console.log(state.filters);
-            }).catch((error) => {
-                console.error('Fetch error:', error);
-            });
-        },
-        ProductClick(name, id) {
-            this.$router.push({
-                name: 'product',
-                // preserve current path and remove the first char to avoid the target URL starting with `//`
-                params: { pathMatch: this.$route.path.substring(1).split('/') },
-                // preserve existing query and hash if any
-                query: this.$route.query,
-                hash: this.$route.hash,
-            })
-        },
-        GetSubs(name, id) {
-            state.selectedName = `${state.selectedName} >> ${name}`;
-            state.selectedId = id;
-        },
-        SubcatClick(name, id) {
-            this.$router.push({
-                name: 'subcategory',
-                // preserve current path and remove the first char to avoid the target URL starting with `//`
-                params: { pathMatch: this.$route.path.substring(1).split('/') },
-                // preserve existing query and hash if any
-                query: this.$route.query,
-                hash: this.$route.hash,
-            })
-        }
+      GetThisProduct() {
+        fetch(`http://localhost:1433/api/data/product/${state.productId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            this.product = data[0];
+            console.log(this.product.Part_Number)
+            
+          }).catch((error) => {
+            console.error('Fetch error:', error);
+          });
+      },
     }
   }
 </script>

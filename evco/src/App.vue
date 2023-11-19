@@ -2,13 +2,15 @@
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
 import { state } from './state';
+import { ref } from "vue";
+const sliderValue = ref(0);
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: white !important; border-bottom: 2px #4DAA57 solid;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #595959 !important; border-bottom: 3px #F23838 solid;">
     <div class="container-fluid">
       <a class="navbar-brand ms-3" href="#">
-        <img alt="Evco Logo" class="logo" src="./assets/evcoGear.png" width="100" height="50" />
+        <img alt="Evco Logo" class="logo" src="./assets/evcoNoBg.png" height="80" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,31 +19,31 @@ import { state } from './state';
         <div class="col-1"></div>
         <form class="me-5 d-flex col-7" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-light" type="submit">Search</button>
         </form>
-        <div class="col-1"></div>
-        <div class="col-3">
+        <div class="col"></div>
+        <div class="col-2">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="#" style="font-size: 12pt;">(979) 233-5303</a>
+              <a class="nav-link" href="#" style="font-size: 12pt; color: #F2E530 !important;">(979) 233-5303</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" style="font-size: 12pt;">Email Us</a>
+              <a class="nav-link" href="#" style="font-size: 12pt; color: #F2E530 !important;">Email Us</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#" style="font-size: 12pt;">Order</a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
     </div>
   </nav>
   <main>
-    <div v-if="state.view === 'categories'" class="row h-100 p-3">
-      <div class="col-2" style="border-right: 2px gray solid;">
-        <p class="ms-3" style="color: #4DAA57;font-size: 20px;">Categories</p>
+    <div v-if="state.view === 'categories'" class="row h-100">
+      <div class="col-2 pt-3" style="border-right: 2px gray solid; background-color: #DFE1E2 !important;">
+        <p class="ms-3" style="color: #F23838;font-size: 20px;">Categories</p>
         <ul class="list-group list-group-flush">
-          <li v-for="category in categories" class="list-group-item" style="font-size: 10pt;">
+          <li v-for="category in categories" class="list-group-item" style="font-size: 10pt; background-color: #DFE1E2 !important;">
             <RouterLink @click="categoryClick(category.name, category.id)" :to="{ name: 'category', params: { name: category.name.replace(/\s/g, '')}}">{{ category.name }}</RouterLink>
           </li>
         </ul>
@@ -50,20 +52,31 @@ import { state } from './state';
         <RouterView />
       </div>
     </div>
-    <div v-if="state.view === 'products'" class="row h-100 p-3">
-      <div class="col-2" style="border-right: 2px gray solid;">
-        <p class="ms-3" style="color: #4DAA57;font-size: 20px;">Filter By</p>
-        <div v-for="filter in state.filters">
-          <p class="ms-3" style="color: #03312E;font-size: 15px;">{{filter.name}}</p>
+    <div v-if="state.view === 'products'" class="row h-100">
+      <div class="col-2 pt-3" style="border-right: 2px gray solid; background-color: #DFE1E2 !important;">
+        <p class="ms-3" style="color: #F23838;font-size: 20px;">Filter By</p>
+        <div>
+          <p class="ms-3" style="color: #595959;font-size: 15px;">{{state.filters[0].name}}</p>
           <ul class="list-group list-group-flush">
-            <li v-for="choice in filter.choices" class="list-group-item">
+            <li v-for="choice in state.filters[0].choices" class="list-group-item" style="background-color: #DFE1E2 !important;">
               <input class="form-check-input me-1" type="checkbox" value="" id="`${choice.replace(/\s/g, '')}`">
               <label class="form-check-label" for="`${choice.replace(/\s/g, '')}`">{{ choice }}</label>
             </li>
           </ul>
+          <p class="ms-3" style="color: #595959;font-size: 15px;">Price</p>
+          <div class="custom-slider px-3">
+            <input v-model="sliderValue" type="range" class="form-range" :min="findSmallestDecimal(state.filters[1].choices)" :max="findLargestDecimal(state.filters[1].choices)" id="priceRange">
+            <br />
+            <input v-model="sliderValue" type="number" />
+          </div>
         </div>
       </div>
-      <div class="col-10">
+      <div class="col-10 pt-3">
+        <RouterView />
+      </div>
+    </div>
+    <div v-if="state.view === 'productPage'" class="row h-100 p-3">
+      <div class="col-12">
         <RouterView />
       </div>
     </div>

@@ -15,28 +15,8 @@ export const state = reactive({
       choices: [],
     },
     {
-      name: 'Cost',
-      choices: [],
-    },
-    {
       name: 'List Price',
       choices: [],
-    },
-    {
-      name: 'Weight',
-      choices: [],
-    },
-    {
-      name: 'Length',
-      choices: [],
-    },
-    {
-      name: 'Width',
-      choices: [],
-    },
-    {
-      name: 'Height',
-      choices: [],
-    },
+    }
   ]
 })

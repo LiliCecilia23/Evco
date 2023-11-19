@@ -5,7 +5,7 @@ import { state } from '../state'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">{{ state.selectedName }}</p>
+  <p class="ms-3" style="color: #F2B035; font-size: 20px;">{{ state.selectedName }}</p>
   <ul v-if="subcats.length > 0" class="list-group list-group-horizontal" style="width: 70vw; overflow-x: scroll;">
     <li v-for="subcat in subcats" class="list-group-item" style="text-align: center; padding: 0px !important; width: 100px;">
       <subcategory @click="subcat.hasChildren === 1 ? GetSubs(subcat.name, subcat.id) : SubcatClick(subcat.name, subcat.id)" :item="subcat"></subcategory>
@@ -54,7 +54,7 @@ import { state } from '../state'
       SubcatClick(name, id) {
         state.subcatId = id;
         state.subcatName = name;
-        state.view = 'products';
+        // state.view = 'products';
         this.$router.push({
         name: 'subcat',
         params: { name: this.$route.params.name, subcat: name.replace(/\s/g, '') },

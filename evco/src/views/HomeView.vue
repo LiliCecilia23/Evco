@@ -3,7 +3,7 @@ import categorySection from '../components/CategorySection.vue'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #4DAA57; font-size: 20px;">All Categories</p>
+  <p class="ms-3 pt-3" style="color: #F23838; font-size: 20px;">All Categories</p>
   <ul class="list-group list-group-flush">
     <categorySection v-for="category in categories" :section="category" class="list-group-item" style="font-size: 10pt;"></categorySection>
   </ul>
