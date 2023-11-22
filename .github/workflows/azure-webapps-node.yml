@@ -35,6 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+          # Change directory to the 'Evco' folder
+    - name: Change directory to Evco folder
+      run: cd evco  # Replace 'Evco' with the correct directory name
+
+    # Display directory contents for verification (optional)
+    - name: List contents of the directory
+      run: ls -la
 
     - name: Node.js Package Install
       run: |
