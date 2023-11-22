@@ -38,11 +38,8 @@ jobs:
           # Change directory to the 'Evco' folder
     - name: Change directory to Evco folder
       run: |
-        cd evco/evco
-
-    # Display directory contents for verification (optional)
-    - name: List contents of the directory
-      run: ls
+        cd evco
+        ls
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
