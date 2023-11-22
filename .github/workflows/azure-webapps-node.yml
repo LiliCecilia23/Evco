@@ -38,7 +38,7 @@ jobs:
           # Change directory to the 'Evco' folder
     - name: Change directory to Evco folder
       run: |
-        cd evco  # Replace 'Evco' with the correct directory name
+        cd evco
         cd evco
 
     # Display directory contents for verification (optional)
