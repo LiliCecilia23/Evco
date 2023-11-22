@@ -35,18 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-          # Change directory to the 'Evco' folder
-    - name: Change directory to Evco folder
-      run: |
-        cd evco
-        ls
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
-        working-directory: 'evco'
+        cache-dependency-path: './evco'
 
     - name: npm install, build, and test
       run: |
