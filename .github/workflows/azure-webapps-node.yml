@@ -36,6 +36,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Node.js Package Install
+      run: |
+        cd evco
+        npm install
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
