@@ -38,7 +38,7 @@ jobs:
           # Change directory to the 'Evco' folder
     - name: Change directory to Evco folder
       run: |
-        cd evco
+        cd evco/evco
 
     # Display directory contents for verification (optional)
     - name: List contents of the directory
@@ -53,7 +53,6 @@ jobs:
 
     - name: npm install, build, and test
       run: |
-        cd evco
         npm install
         npm run build --if-present
         npm run test --if-present
