@@ -3,6 +3,11 @@
 
 name: Build and deploy ASP.Net Core app to Azure Web App - evco
 
+env:
+  AZURE_WEBAPP_NAME: evco    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '7.0.x'             # set this to the dot net version to use
+
 on:
   push:
     branches:
@@ -26,13 +31,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/evco
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/evco
 
   deploy:
     runs-on: windows-latest
