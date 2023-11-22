@@ -46,6 +46,7 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        working-directory: 'evco'
 
     - name: npm install, build, and test
       run: |
