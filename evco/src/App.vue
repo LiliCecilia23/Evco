@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue';
 import { state } from './state';
 import { ref } from "vue";
 const sliderValue = ref(0);
