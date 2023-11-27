@@ -2,16 +2,8 @@ var express = require('express'); // Web Framework
 var app = express();
 var sql = require('mssql'); // MS Sql Server client
 
-// Connection string parameters.
-var config = {
-    user: 'CloudSA8536b986',
-    password: 'evco7989%',
-    server: 'evco.database.windows.net',
-    database: 'EvcoDB'
-}
-
 // Create a pool of database connections
-const pool = new sql.ConnectionPool(config);
+const pool = new sql.ConnectionPool(process.env('DATABASE_CONNECTION_STRING'));
 
 // Connect to the database
 pool.connect()
