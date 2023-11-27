@@ -1,6 +1,7 @@
 var express = require('express'); // Web Framework
 var app = express();
 var sql = require('mssql'); // MS Sql Server client
+var test = require('dotenv').config();
 
 var config = {
   user: process.env.DB_USER,
