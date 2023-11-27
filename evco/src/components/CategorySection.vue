@@ -27,7 +27,7 @@ defineProps(['section']);
     },
     methods: {
       GetSubcategories() {
-        fetch(`http://localhost:1433/api/data/categories/${this.section.id}`)
+        fetch(`https://mango-pebble-0e2297810.4.azurestaticapps.net/api/data/categories/${this.section.id}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ defineProps(['section']);
         })
       },
       GetThisCategory(id) {
-        fetch(`http://localhost:1433/api/data/categories/${id}`)
+        fetch(`https://mango-pebble-0e2297810.4.azurestaticapps.net/api/data/categories/${id}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');

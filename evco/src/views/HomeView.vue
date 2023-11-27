@@ -22,7 +22,7 @@ import categorySection from '../components/CategorySection.vue'
     },
     methods: {
       GetCategories() {
-        fetch('http://localhost:1433/api/data/categories/parents')
+        fetch('https://mango-pebble-0e2297810.4.azurestaticapps.net/api/data/categories/parents')
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
