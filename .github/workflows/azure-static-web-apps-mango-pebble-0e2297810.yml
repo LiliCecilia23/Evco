@@ -34,7 +34,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/evco" # App source code path
           api_location: "/evco" # Api source code path - optional
-          output_location: '/evco/dist' # Built app content directory - optional
+          output_location: "dist" # Built app content directory - optional
           api_build_command: "node api"
           build_timeout_in_minutes: 30
           ###### End of Repository/Build Configurations ######
