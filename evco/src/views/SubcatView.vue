@@ -32,7 +32,7 @@ import { state } from '../state'
     },
     methods: {
         GetProducts() {
-            fetch(`https://localhost:1433/api/data/products/${state.subcatId}`)
+            fetch(`${process.env.BASE_URL}api/data/products/${state.subcatId}`)
             .then((response) => {
                 if (!response.ok) {
                 throw new Error('Network response was not ok');

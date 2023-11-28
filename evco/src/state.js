@@ -2,6 +2,7 @@
 import { reactive } from 'vue'
 
 export const state = reactive({
+  baseUrl: process.env.BASE_URL,
   view: 'categories',
   selectedId: null,
   selectedName: null,

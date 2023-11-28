@@ -32,7 +32,7 @@ import { state } from '../state'
     },
     methods: {
       GetThisCategory() {
-        fetch(`http://localhost:1433/api/data/categories/${state.selectedId}`)
+        fetch(`${process.env.BASE_URL}api/data/categories/${state.selectedId}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
