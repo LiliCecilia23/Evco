@@ -69,7 +69,7 @@ import { state } from '../state'
     },
     methods: {
       GetThisProduct() {
-        fetch(`${process.env.BASE_URL}api/data/product/${state.productId}`)
+        fetch(`/api/data/product/${state.productId}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');

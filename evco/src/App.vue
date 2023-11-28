@@ -103,7 +103,7 @@ const sliderValue = ref(0);
         state.productName = name;
       },
       GetCategories() {
-        fetch(`${process.env.BASE_URL}api/data/categories/parents`)
+        fetch('/api/data/categories/parents')
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
