@@ -32,7 +32,7 @@ import { state } from '../state'
     },
     methods: {
       GetThisCategory() {
-        fetch(`https://mango-pebble-0e2297810.4.azurestaticapps.net/api/data/categories/${state.selectedId}`)
+        fetch(`api/data/categories/${state.selectedId}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
