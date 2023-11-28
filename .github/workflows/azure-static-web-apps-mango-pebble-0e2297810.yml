@@ -48,7 +48,7 @@ jobs:
           app_location: ${{ env.APP_LOCATION }}
           api_location: ${{ env.API_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
-          api_build_command: "node api"
+          app_build_command: "node api"
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
