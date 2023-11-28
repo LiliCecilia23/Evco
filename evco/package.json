@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node api",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "mime": "^3.0.0",
     "mssql": "^10.0.1",
     "mysql": "^2.18.1",
+    "rollup-plugin-copy": "^3.5.0",
     "safe-buffer": "^5.2.1",
     "send": "^0.18.0",
     "vue": "^3.3.4",
