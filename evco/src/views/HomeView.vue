@@ -22,7 +22,7 @@ import categorySection from '../components/CategorySection.vue'
     },
     methods: {
       GetCategories() {
-        fetch('api/data/categories/parents')
+        fetch('https://evco.azurewebsites.net/api/data/categories/parents')
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
