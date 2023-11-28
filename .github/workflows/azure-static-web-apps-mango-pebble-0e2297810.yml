@@ -15,6 +15,7 @@ env:
   OUTPUT_LOCATION: "dist" # location of client code build output
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
+  CUSTOM_BUILD_COMMAND: "vite build && node api"
 
 on:
   push:
@@ -48,7 +49,6 @@ jobs:
           app_location: ${{ env.APP_LOCATION }}
           api_location: ${{ env.API_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
-          app_build_command: "node api"
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
