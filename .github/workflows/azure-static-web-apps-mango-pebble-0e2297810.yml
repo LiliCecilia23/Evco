@@ -13,6 +13,8 @@ env:
   APP_LOCATION: "/evco" # location of your client code
   API_LOCATION: "/evco" # location of your api source code - optional
   OUTPUT_LOCATION: "dist" # location of client code build output
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASS: ${{ secrets.DB_PASS }}
 
 on:
   push:
