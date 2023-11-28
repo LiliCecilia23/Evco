@@ -69,7 +69,7 @@ import { state } from '../state'
     },
     methods: {
       GetThisProduct() {
-        fetch(`https://evco.azurewebsites.net/api/data/product/${state.productId}`)
+        fetch(`http://localhost:1433/pi/data/product/${state.productId}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');

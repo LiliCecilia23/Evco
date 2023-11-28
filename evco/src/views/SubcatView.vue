@@ -32,7 +32,7 @@ import { state } from '../state'
     },
     methods: {
         GetProducts() {
-            fetch(`https://evco.azurewebsites.net/api/data/products/${state.subcatId}`)
+            fetch(`https://localhost:1433/api/data/products/${state.subcatId}`)
             .then((response) => {
                 if (!response.ok) {
                 throw new Error('Network response was not ok');
