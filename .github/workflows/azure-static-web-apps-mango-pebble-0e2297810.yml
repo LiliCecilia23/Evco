@@ -15,7 +15,6 @@ env:
   OUTPUT_LOCATION: "dist" # location of client code build output
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
-  CUSTOM_BUILD_COMMAND: "npm run build && node api"
 
 on:
   push:
