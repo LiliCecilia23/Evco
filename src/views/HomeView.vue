@@ -22,7 +22,7 @@ import categorySection from '../components/CategorySection.vue'
     },
     methods: {
       GetCategories() {
-        fetch('/api/data/categories/parents')
+        fetch('https://fakestoreapi.com/products/categories')
           .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -31,30 +31,7 @@ import categorySection from '../components/CategorySection.vue'
           })
           .then((data) => {
             console.log(data);
-            this.categories = data.sort(function(a, b) {
-                let textA = a.name.toUpperCase();
-                let textB = b.name.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
-            // data.map((category) => {
-            //   if (category.Category.includes('->')) {
-            //     const parentCategory = category.Category.substring(0, category.Category.indexOf('->'))
-            //     if (parentCategory.includes('(')) {
-            //       const parentCategoryNoParens = parentCategory.substring(0, parentCategory.indexOf(' ('))
-            //       this.categories.push(parentCategoryNoParens);
-            //     } else {
-            //       this.categories.push(parentCategory);
-            //     } 
-            //   } else if (!category.Category.includes('->')) {
-            //     if (category.Category.includes('(')) {
-            //       const categoryNoParens = category.Category.substring(0, category.Category.indexOf(' ('))
-            //       this.categories.push(categoryNoParens);
-            //     } else {
-            //       this.categories.push(category.Category);
-            //     }
-            //   }
-            // });
-            // this.categories = this.uniq(this.categories);
+            this.categories = data;
           }).catch((error) => {
             console.error('Fetch error:', error);
           });

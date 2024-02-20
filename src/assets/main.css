@@ -1,17 +1,17 @@
 * {
-    color: #595959;
+    color: black;
     font-family: 'Lato', sans-serif;
 }
 
 li {
     border: none !important;
     font-size: 10.5px !important;
-    color: #595959;
+    color: black;
 }
 
 a {
     text-decoration: none !important;
-    color: #595959;
+    color: black;
 }
 
 .nav-link {
@@ -19,5 +19,5 @@ a {
 }
 
 h5 {
-    color: #595959;
+    color: black;
 }
