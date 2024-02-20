@@ -9,7 +9,7 @@ const sliderValue = ref(0);
   <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #595959 !important; border-bottom: 3px #F23838 solid;">
     <div class="container-fluid">
       <a class="navbar-brand ms-3" href="#">
-        <img alt="Evco Logo" class="logo" src="./assets/evcoNoBg.png" height="80" />
+        <img alt="Evco Logo" class="logo" src="./assets/Lc.Co.png" height="80" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
