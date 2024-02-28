@@ -14,7 +14,7 @@ const sliderValue = ref(0);
       <div class="col-4">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li v-for="category in categories" class="nav-item me-3">
-            <RouterLink style="font-size: 12pt; color: #f595ed !important;" @click="categoryClick(category)" :to="{ name: 'category', params: { name: category.replace(/\s/g, '')}}">{{ category }}</RouterLink>
+            <RouterLink style="font-size: 12pt; color: #f595ed !important;" @click="categoryClick(category.name, category.id)" :to="{ name: 'category', params: { name: category.name.replace(/\s/g, '')}}">{{ category.name }}</RouterLink>
           </li>
         </ul>
       </div>
@@ -44,13 +44,13 @@ const sliderValue = ref(0);
           <img src="./assets/pexels-juan-mendez-1536619.jpg" class="d-block w-100" alt="Yellow Background Fashionable Woman">
         </div>
         <div class="carousel-item">
-          <img src="./assets/pexels-andrea-piacquadio-845434.jpg" class="d-block w-100" alt="...">
+          <img src="./assets/pexels-andrea-piacquadio-845434.jpg" class="d-block w-100" alt="Man against blue bricks">
         </div>
         <div class="carousel-item">
-          <img src="./assets/pexels-alex-kinkate-205926.jpg" class="d-block w-100" alt="...">
+          <img src="./assets/pexels-alex-kinkate-205926.jpg" class="d-block w-100" alt="Headphones">
         </div>
         <div class="carousel-item">
-          <img src="./assets/pexels-cottonbro-studio-6662322.jpg" class="d-block w-100" alt="...">
+          <img src="./assets/pexels-cottonbro-studio-6662322.jpg" class="d-block w-100" alt="Woman with painted face wearing jewelry">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
@@ -117,12 +117,30 @@ const sliderValue = ref(0);
   export default {
     data() {
       return {
-        categories: ['Electronics', 'Jewelery', "Men's", "Women's"],
+        categories: [
+          {
+            name: 'Electronics',
+            id: 'electronics'
+          },
+          {
+            name: 'Jewelery',
+            id: 'jewelery'
+          },
+          {
+            name: "Men's",
+            id: "men's clothing"
+          },
+          {
+            name: "Women's",
+            id: "women's clothing"
+          }
+        ],
         selected: null,
       }
     },
     methods: {
-      categoryClick(name) {
+      categoryClick(name, id) {
+        state.selectedId = id;
         state.selectedName = name;
       },
       productClick(name, id) {
