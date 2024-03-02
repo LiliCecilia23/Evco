@@ -6,9 +6,9 @@ const sliderValue = ref(0);
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary py-0" style="background-color: black !important; border-bottom: 3px #f098c5 solid;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary py-0" style="background-color: black !important; border-bottom: 3px #f595ed solid;">
     <div class="container-fluid py-0 row">
-      <a class="navbar-brand ms-3 py-0 col-1" href="#">
+      <a class="navbar-brand ms-3 py-0 col-1" href="#" @click="homeClick()">
         <img alt="Evco Logo" class="logo" src="./assets/Lc.Co.png" height="100" />
       </a>
       <div class="col-4">
@@ -36,36 +36,7 @@ const sliderValue = ref(0);
     </div>
   </nav>
   <main>
-    <div v-if="state.selectedId === null" class="row" style="background-color: black;">
-      <div class="col"></div>
-      <div id="carouselExampleRide" class="carousel slide col-7" data-bs-ride="true">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="./assets/pexels-juan-mendez-1536619.jpg" class="d-block w-100" alt="Yellow Background Fashionable Woman">
-        </div>
-        <div class="carousel-item">
-          <img src="./assets/pexels-andrea-piacquadio-845434.jpg" class="d-block w-100" alt="Man against blue bricks">
-        </div>
-        <div class="carousel-item">
-          <img src="./assets/pexels-alex-kinkate-205926.jpg" class="d-block w-100" alt="Headphones">
-        </div>
-        <div class="carousel-item">
-          <img src="./assets/pexels-cottonbro-studio-6662322.jpg" class="d-block w-100" alt="Woman with painted face wearing jewelry">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <div class="col"></div>
-    </div>
-
-    <RouterView v-else />
+    <RouterView />
   </main>
 
   <!-- <main>
@@ -139,6 +110,11 @@ const sliderValue = ref(0);
       }
     },
     methods: {
+      homeClick() {
+        this.$router.push({
+          name: 'home'
+        })
+      },
       categoryClick(name, id) {
         state.selectedId = id;
         state.selectedName = name;
