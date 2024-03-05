@@ -10,6 +10,8 @@ export const state = reactive({
   subcatName: null,
   productName: null,
   productId: null,
+  users: [],
+  loggedInUser: null,
   filters: [
     {
       name: 'Manufacturer',

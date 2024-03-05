@@ -2,7 +2,7 @@
 import { state } from '../state'
 </script>
 <template>
-    <div class="row" style="background-color: black;">
+    <div class="row" style="background-color: white;">
       <div class="col"></div>
       <div id="carouselExampleRide" class="carousel slide col-7" data-bs-ride="true">
       <div class="carousel-inner">
@@ -42,6 +42,8 @@ import { state } from '../state'
 
     methods: {
       categoryClick(cat) {
+        console.log(cat)
+        state.selectedName = this.GetName(cat);
         state.selectedId = cat;
 
         this.$router.push({
@@ -49,6 +51,18 @@ import { state } from '../state'
           params: { name: cat }
         })
       },
+      GetName(cat) {
+        switch (cat) {
+          case 'electronics': 
+            return 'Electronics'
+          case 'jewelery':
+            return 'Jewelery'
+          case "men's clothing":
+            return "Men's Clothing"
+          case "women's clothing":
+            return "Women's Clothing"
+        }
+      }
     }
   }
 </script>

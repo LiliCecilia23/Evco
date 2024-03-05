@@ -1,12 +1,11 @@
 <script setup>
-import subcategory from '../components/Subcategory.vue';
 import productListItem from '../components/ProductListItem.vue'
 
 import { state } from '../state'
 </script>
 
 <template>
-  <p class="ms-3" style="color: #f595ed; font-size: 20px;">{{ state.selectedName }}</p>
+  <p class="ms-3 my-3" style="color: #5E645F; font-size: 20px;">{{ state.selectedName }}</p>
   <div v-if="products.length > 0" class="row px-3">
     <div v-for="product in products" class="col-4 px-0">
       <productListItem @click="ProductClick(product.title, product.id)" :item="product"></productListItem>

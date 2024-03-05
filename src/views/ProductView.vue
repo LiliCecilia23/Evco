@@ -8,8 +8,8 @@ import StarRating from '../components/StarRating.vue';
     <div class="col-7 p-3">
       <nav class="ms-3" aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#">Home</a></li>
-          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#">{{ product.category }}</a></li>
+          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#" @click="GoHome()">Home</a></li>
+          <li class="breadcrumb-item" style="font-size: 12pt !important;"><a href="#" @click="GoToCategory(product.category)">{{ GetName(product.category) }}</a></li>
           <li class="breadcrumb-item active" style="font-size: 12pt !important;" aria-current="page">{{ state.productName }}</li>
         </ol>
       </nav>
@@ -19,11 +19,11 @@ import StarRating from '../components/StarRating.vue';
       </div>
     </div>
     <div class="col p-3 me-3">
-      <p style="color: black; font-size: 25pt;">{{ state.productName }}</p>
+      <p style="color: black; font-size: 20pt;">{{ state.productName }}</p>
       <hr>
-      <p style="font-size: 25pt;">${{ product.price }}</p>
+      <p style="font-size: 18pt; margin-bottom: 0px;">${{ product.price }}</p>
       <StarRating v-if="product.rating !== undefined" :rating="product.rating.rate" :number="product.rating.count" :read-only="true" :increment="0.01"></StarRating>
-      <p style="font-size: 12pt;">{{ product.description }}</p>
+      <p style="font-size: 12pt; color: #5E645F">{{ product.description }}</p>
     </div>
   </div>
 </template>
@@ -52,6 +52,19 @@ import StarRating from '../components/StarRating.vue';
       }
     },
     methods: {
+      GoHome() {
+        this.$router.push({
+          name: 'home'
+        })
+      },
+      GoToCategory(cat) {
+        state.selectedId = cat;
+
+        this.$router.push({
+          name: 'category',
+          params: { name: cat }
+        })
+      },
       GetThisProduct() {
         fetch(`https://fakestoreapi.com/products/${state.productId}`)
             .then(res=>res.json())
@@ -62,6 +75,18 @@ import StarRating from '../components/StarRating.vue';
               console.error('Fetch error:', error);
             });
       },
+      GetName(cat) {
+        switch (cat) {
+          case 'electronics': 
+            return 'Electronics'
+          case 'jewelery':
+            return 'Jewelery'
+          case "men's clothing":
+            return "Men's Clothing"
+          case "women's clothing":
+            return "Women's Clothing"
+        }
+      }
     }
   }
 </script>

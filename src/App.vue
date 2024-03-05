@@ -6,30 +6,33 @@ const sliderValue = ref(0);
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary py-0" style="background-color: black !important; border-bottom: 3px #f595ed solid;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary py-0" style="background-color: white !important; border-bottom: 3px #f595ed solid;">
     <div class="container-fluid py-0 row">
-      <a class="navbar-brand ms-3 py-0 col-1" href="#" @click="homeClick()">
-        <img alt="Evco Logo" class="logo" src="./assets/Lc.Co.png" height="100" />
+      <a class="navbar-brand ms-3 p-1 col-1" href="#" @click="homeClick()">
+        <img alt="Fake Lc.co Logo" class="logo" src="./assets/lightlogo.png" height="100" />
       </a>
       <div class="col-4">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="ps-3 navbar-nav me-auto mb-2 mb-lg-0">
           <li v-for="category in categories" class="nav-item me-3">
-            <RouterLink style="font-size: 12pt; color: #f595ed !important;" @click="categoryClick(category.name, category.id)" :to="{ name: 'category', params: { name: category.name.replace(/\s/g, '')}}">{{ category.name }}</RouterLink>
+            <RouterLink style="font-size: 12pt; color: black !important; font-weight: bold;" @click="categoryClick(category.name, category.id)" :to="{ name: 'category', params: { name: category.name.replace(/\s/g, '')}}">{{ category.name }}</RouterLink>
           </li>
         </ul>
       </div>
       <div class="col"></div>
       <div class="input-group col">
-        <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-light" type="button" id="button-addon2"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-magnifying-glass"></span></button>
+        <input @keyup.enter="Search('key')" v-model="searchTerm" style="border: 1px solid black;" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2" />
+        <button @click="Search('btn')" ref="myBtn" class="btn btn-dark rounded" type="button" id="button-addon2" data-bs-toggle="dropdown" aria-expanded="false"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-magnifying-glass"></span></button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li v-for="res in results"><a class="dropdown-item" href="#">{{ res.title.length > 50 ? `${res.title.substring(0, 50)}...` : res.title }}</a></li>
+        </ul>
       </div>
-      <div class="col-2">
+      <div class="col-1">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item me-3">
-            <button title="Log In" class="btn btn-outline-light" href="#"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-right-to-bracket me-2"></span>Sign In</button>
+            <button title="Log In" class="btn btn-dark" href="#" @click="loginClick"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-right-to-bracket"></span></button>
           </li>
           <li class="nav-item">
-            <button title="View Cart" class="btn btn-outline-light" href="#"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping me-2"></span>Cart</button>
+            <button title="View Cart" class="btn btn-dark" href="#"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping"></span></button>
           </li>
         </ul>
       </div>
@@ -88,6 +91,9 @@ const sliderValue = ref(0);
   export default {
     data() {
       return {
+        searchTerm: '',
+        products: [],
+        results: [],
         categories: [
           {
             name: 'Electronics',
@@ -109,10 +115,18 @@ const sliderValue = ref(0);
         selected: null,
       }
     },
+    mounted() {
+      this.GetAllProducts();
+    },
     methods: {
       homeClick() {
         this.$router.push({
           name: 'home'
+        })
+      },
+      loginClick() {
+        this.$router.push({
+          name: 'login'
         })
       },
       categoryClick(name, id) {
@@ -123,10 +137,28 @@ const sliderValue = ref(0);
         state.productId = id;
         state.productName = name;
       },
-      uniq(a) {
-        return a.sort().filter(function(item, pos, ary) {
-            return !pos || item != ary[pos - 1];
-        });
+      GetAllProducts() {
+        fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(json=>this.products = json);
+      },
+      Search(method) {
+        if (method === 'key') {
+          const elem = this.$refs.myBtn
+          elem.click()
+        } else {
+          this.results = [];
+          const term = this.searchTerm;
+          if (this.searchTerm !== '') {
+            this.products.map((item) => {
+              if (item.title.toLowerCase().includes(term) || item.category.includes(term)) {
+                this.results.push(item);
+              }
+            })
+          } else {
+            this.results = this.products;
+          }
+        }
       }
     }
   }
