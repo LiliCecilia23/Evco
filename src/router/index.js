@@ -9,27 +9,27 @@ const router = createRouter({
   history: createWebHistory('/Evco'),
   routes: [
     {
-      path: '/Evco',
+      path: '/',
       name: 'home',
       component: HomeView
     },
     {
-      path: '/Evco/category/:name',
+      path: '/category/:name',
       name: 'category',
       component: CategoryView,
     },
     {
-      path: '/Evco/product/:id',
+      path: '/product/:id',
       name: 'product',
       component: ProductView,
     },
     {
-      path: '/Evco/login',
+      path: '/login',
       name: 'login',
       component: LogInView,
     },
     {
-      path: '/Evco/cart',
+      path: '/cart',
       name: 'cart',
       component: CartView,
     },
