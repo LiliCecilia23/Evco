@@ -9,7 +9,7 @@ const sliderValue = ref(0);
   <nav class="navbar navbar-expand-lg bg-body-tertiary py-0" style="background-color: white !important; border-bottom: 3px #f595ed solid;">
     <div class="container-fluid py-0 row">
       <a class="navbar-brand ms-3 p-1 col-1" href="#" @click="homeClick()">
-        <img alt="Fake Lc.co Logo" class="logo" src="/Evco/assets/lightlogo.png" height="100" />
+        <img alt="Fake Lc.co Logo" class="logo" src="./assets/lightlogo.png" height="100" />
       </a>
       <div class="col-4">
         <ul class="ps-3 navbar-nav me-auto mb-2 mb-lg-0">

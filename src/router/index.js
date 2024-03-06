@@ -8,9 +8,8 @@ import CartView from '../views/CartView.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/Evco', redirect: { name: 'home' } },
     {
-      path: '/',
+      path: '/Evco',
       name: 'home',
       component: HomeView
     },
