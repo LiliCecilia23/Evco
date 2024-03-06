@@ -6,7 +6,7 @@ import LogInView from '../views/LogInView.vue'
 import CartView from '../views/CartView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/Evco'),
   routes: [
     {
       path: '/Evco',

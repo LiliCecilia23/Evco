@@ -16,7 +16,7 @@ import { state } from '../state'
             </div>
         </div>
         <div v-else class="col-6 py-3">
-            <ul class="list-group">
+            <ul v-if="cart.length > 0" class="list-group">
                 <li v-for="item in cart" class="list-group-item">
                     <div class="d-flex w-100 justify-content-between">
                         <div style="display: flex; flex-direction: row;">
@@ -32,6 +32,9 @@ import { state } from '../state'
                     </div>
                 </li>
             </ul>
+            <div v-else>
+                <h5>No products are currently in your cart.</h5>
+            </div>
         </div>
         <div class="col"></div>
     </div>
