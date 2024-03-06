@@ -6,9 +6,9 @@ import LogInView from '../views/LogInView.vue'
 import CartView from '../views/CartView.vue'
 
 const router = createRouter({
-  base: '/Evco/',
   history: createWebHistory(),
   routes: [
+    { path: '/Evco', redirect: { name: 'home' } },
     {
       path: '/',
       name: 'home',
