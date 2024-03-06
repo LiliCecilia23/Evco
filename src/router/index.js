@@ -14,22 +14,22 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/category/:name',
+      path: 'Evco/category/:name',
       name: 'category',
       component: CategoryView,
     },
     {
-      path: '/product/:id',
+      path: 'Evco/product/:id',
       name: 'product',
       component: ProductView,
     },
     {
-      path: '/login',
+      path: 'Evco/login',
       name: 'login',
       component: LogInView,
     },
     {
-      path: '/cart',
+      path: 'Evco/cart',
       name: 'cart',
       component: CartView,
     },

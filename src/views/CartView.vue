@@ -32,7 +32,7 @@ import { state } from '../state'
                     </div>
                 </li>
             </ul>
-            <div v-else>
+            <div v-else style="display: flex; align-items: center;">
                 <h5>No products are currently in your cart.</h5>
             </div>
         </div>
