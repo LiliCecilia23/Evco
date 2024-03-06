@@ -14,8 +14,7 @@ import StarRating from '../components/StarRating.vue';
         </ol>
       </nav>
       <div style="display: flex; justify-content: center;">
-        <img v-if="product.image === null || product.image === undefined" src="../assets/noImg.png" alt="No Image Available" />
-        <img v-else :src="product.image" alt="Product Image" />
+        <img :src="product.image" alt="Product Image" />
       </div>
     </div>
     <div class="col p-3 me-3">
