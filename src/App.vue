@@ -32,7 +32,7 @@ const sliderValue = ref(0);
             <button title="Log In" class="btn btn-dark" href="#" @click="loginClick"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-right-to-bracket"></span></button>
           </li>
           <li class="nav-item">
-            <button title="View Cart" class="btn btn-dark" href="#"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping"></span></button>
+            <button title="View Cart" class="btn btn-dark" href="#" @click="cartClick"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping"></span></button>
           </li>
         </ul>
       </div>
@@ -127,6 +127,11 @@ const sliderValue = ref(0);
       loginClick() {
         this.$router.push({
           name: 'login'
+        })
+      },
+      cartClick() {
+        this.$router.push({
+          name: 'cart'
         })
       },
       categoryClick(name, id) {

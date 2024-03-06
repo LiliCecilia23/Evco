@@ -18,7 +18,7 @@ import { state } from '../state'
         <div v-else class="col-6 py-3">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
                 <h5>Hello, {{ state.loggedInUser.name.firstname.charAt(0).toUpperCase() + state.loggedInUser.name.firstname.slice(1) }}!</h5>
-                <button title="View Cart" class="mt-3 btn btn-dark" href="#"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping me-3"></span> View My Cart</button>
+                <button title="View Cart" class="mt-3 btn btn-dark" href="#" @click="cartClick"><span style="font-size: 12pt; color: #f595ed !important;" class="fa-solid fa-cart-shopping me-3"></span> View My Cart</button>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
@@ -54,14 +54,16 @@ import { state } from '../state'
       }
     },
     mounted() {
-        fetch('https://fakestoreapi.com/users/1')
-            .then(res=>res.json())
-            .then(json=> console.log(json))
         if (state.users.length === 0) {
             this.GetUsers();
         }
     },
     methods: {
+      cartClick() {
+        this.$router.push({
+          name: 'cart'
+        })
+      },
       GetUsers() {
         fetch('https://fakestoreapi.com/users')
             .then(res=>res.json())
